@@ -1,4 +1,4 @@
-# 24. pyautogui 사용법 배우기
+# pyautogui 사용법 배우기(박재율 선생님)
 ## pyautogui 설치하기
 * 키보드와 마우스를 제어할 수 있는 모듈입니다.
 * ```pip install pyautogui```로 설치합니다. 
