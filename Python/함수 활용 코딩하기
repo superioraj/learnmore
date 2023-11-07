@@ -1,0 +1,110 @@
+# 함수활용 코딩하기
+## 함수 사용법 알기
+* def 키워드를 사용해서 함수를 만듭니다.
+* 함수 안에 매개변수를 사용할 수 있습니다.
+* 함수에 실제로 넣는 값을 인자라고 합니다. 
+```python
+def 함수이름(매개변수):
+    실행할 문장1
+    실행할 문장2
+    return 리턴값
+```
+
+```python
+def print_name(name):
+    print("내 이름은 {0}입니다.".format(name))
+
+print_name("파이썬")
+```
+
+* 함수 매개변수의 초기값을 정할 수 있습니다.
+```python
+def 함수이름(매개변수1=값1, 매개변수2=값2):
+    실행할 문장1
+    실행할 문장2
+    return 리턴값
+```
+
+```python
+def add(a=10, b=20):
+    print(a+b)
+
+add()
+add(5,10)
+```
+
+## 람다 함수 사용법 알기
+* 람다 함수는 익명(이름이 없는)함수(Anonymous funcion)라고도 합니다. 
+* lambda 키워드를 사용합니다.
+* ```lambda 매개변수 : 실행할 문장```으로 사용합니다.
+```python
+print((lambda x : x)(5))
+```
+
+* 람다함수를 변수에 할당해서 사용할 수 있습니다.
+```python
+a = lambda x, y : x+y
+print(a(5,5))
+```
+
+## 다양한 내장함수
+* ```fliter```를 사용해서 조건에 맞는 원소로 새로운 리스트를 만들 수 있습니다.
+```python
+def positive(l): 
+    result = [] 
+    for i in l: 
+        if i > 0: 
+            result.append(i) 
+    return result
+
+print(positive([1,3,-2,0,-4]))
+```
+
+```python
+print(list(filter(lambda x: x > 0, [1,3,-2,0,-4])))
+```
+
+* map()은 함수와 반복 가능한(iterable) 자료형을 입력으로 받습니다.
+* map 입력받은 자료형의 각 원소를 함수에 매개변수로 넣어서 그 결과를 돌려줍니다.
+```python
+def double(x):
+    return x*2
+
+a = [1,2,3,4]
+b = list(map(double, a))
+print(b)
+```
+
+```python
+a = [1,2,3,4]
+b = list(map(lambda x:x*2, a))
+print(b)
+```
+
+## ```*args``` 사용하기
+* ```*args```는 임의의 갯수의 Positional Argument 입니다. 인자가 아무리 많더라도 ```*args``` 매개변수로 받을 수 있습니다.
+* ```*args```로 매개변수가 선언되면 모든 인자들은 함수내부에서 tuple 형태로 처리됩니다.
+* 입력한 정수를 모두 더해주는 함수를 아래와 같이 만들 수 있습니다.
+```python
+def manyArguments(*args):
+    sum_value = 0
+    for element in args:
+         sum_value = sum_value + element
+    return sum_value
+
+print(manyArguments(1,2,3,4))
+```
+
+## 지역변수와 전역변수 이해하기
+* 지역변수는 함수 내에서 사용하는 변수입니다.
+* 함수의 실행이 끝나면 지역변수는 사라집니다.
+* 전역변수는 함수 외부에서 선언된 변수입니다.
+* 함수에서 전역변수를 사용하려면 변수 이름 앞에 global 키워드를 넣습니다.
+```python
+a = 10
+def test():
+    a = 20
+    print(a)
+test()    
+print(a)   
+```
