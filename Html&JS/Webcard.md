@@ -17,6 +17,7 @@
         .container {
             width: 220px; height: 310px; transition: all 0.1s;
             position: relative;
+            overflow: hidden; /* 스크롤 바 숨기기 */
         }
         .overlay {
             position: absolute;
@@ -32,12 +33,10 @@
             background-size: 150% 150%;
             background-position: 100%;
             transition: all 0.1s;
-            resize: none;
         }
         .card {
             width: 220px; height: 310px;
-            resize: none;
-            background-image: url('https://drive.google.com/uc?export=view&id=1H87CrjyjMZmxwBH41cMoO740PJXdtNYf');
+            background-image: url('https://drive.google.com/uc?export=view&id=1H87CrjyjMZmxwBH41cMoO740PJXdtNYf');  /* image url 업로드 */  
             background-size: cover;
         }
     </style>
@@ -71,4 +70,5 @@
     </script>
 </body>
 </html>
+
 ```
