@@ -35,6 +35,7 @@
         }
         .card {
             width: 220px; height: 310px;
+            resize: none;
             background-image: url('https://drive.google.com/uc?export=view&id=1H87CrjyjMZmxwBH41cMoO740PJXdtNYf');
             background-size: cover;
         }
