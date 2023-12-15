@@ -3,7 +3,7 @@
 * 결과링크: <https://www.learnmore.co.kr/education/codepython/html-css/html-cards>
 * html을 기준으로 css & js 넣고 구현 sample
 * background-image: url('xxx') 에서 xxx에 google drive 이미지 파일 url 넣기
-* https://drive.google.com/uc?export=view&id=1H87CrjyjMZmxwBH41cMoO740PJXdtNYf 에서 1H87CrjyjMZmxwBH41cMoO740PJXdtNYf 부분이 고유 File_ID 입니다.
+* https://drive.google.com/uc?export=view&id=1H87CrjyjMZmxwBH41cMoO740PJXdtNYf 에서 **1H87CrjyjMZmxwBH41cMoO740PJXdtNYf** 부분이 고유 File_ID 입니다.
 * 구글 드라이브의 이미지 파일 '공유' 부분에서 File_ID를 확인하고 https://drive.google.com/uc?export=view&id= 뒤에 넣고 코드 38번 줄 back-groundimage에 넣어 주세야 합니다.
   
 ```
