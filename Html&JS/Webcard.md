@@ -32,6 +32,7 @@
             background-size: 150% 150%;
             background-position: 100%;
             transition: all 0.1s;
+            resize: none;
         }
         .card {
             width: 220px; height: 310px;
