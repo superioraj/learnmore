@@ -31,7 +31,7 @@
         }
         .card {
             width: 220px; height: 310px;
-            background-image: url('pika.webp'); /* 여기에 적절한 이미지 URL을 넣으세요 */
+            background-image: https://drive.google.com/file/d/1H87CrjyjMZmxwBH41cMoO740PJXdtNYf/view?usp=sharing; /* 여기에 적절한 이미지 URL을 넣으세요 */
             background-size: cover;
         }
     </style>
@@ -69,7 +69,7 @@
   }
   .card {
     width: 220px; height: 310px;
-    background-image: https://drive.google.com/file/d/1H87CrjyjMZmxwBH41cMoO740PJXdtNYf/view?usp=edit;
+    background-image: https://drive.google.com/file/d/1H87CrjyjMZmxwBH41cMoO740PJXdtNYf/view?usp=sharing;
     background-size: cover;
   }
 </style>
