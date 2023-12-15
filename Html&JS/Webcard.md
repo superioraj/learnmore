@@ -65,12 +65,4 @@
     </script>
 </body>
 </html>
-
-  }
-  .card {
-    width: 220px; height: 310px;
-    background-image: https://drive.google.com/file/d/1H87CrjyjMZmxwBH41cMoO740PJXdtNYf/view?usp=sharing;
-    background-size: cover;
-  }
-</style>
 ```
