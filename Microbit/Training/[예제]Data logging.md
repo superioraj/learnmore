@@ -15,7 +15,7 @@ import log
 
 log.set_labels('temperature', 'sound', 'light')
 
-@run_every(ms=3000) #ms는 미리세건이며 1000이 1초 입니다. 여기 시간은 변경하여 측정 속도를 조철할 수 있습니다.
+@run_every(ms=3000) #ms는 미리세컨이며 1000이 1초 입니다. 여기 시간은 변경하여 측정 속도를 조철할 수 있습니다.
 def log_data():
     log.add({
       'temperature': temperature(),
