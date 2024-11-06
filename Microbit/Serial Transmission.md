@@ -1,7 +1,6 @@
 * 마이크로 비트 파이썬 에디터 시리얼 통신 코드
 ```
 from microbit import *
-import bluetooth
 
 # 블루투스 초기화 설정 (마이크로비트 환경에 맞게 설정 필요)
 uart.init(baudrate=115200)  # 기본 블루투스 설정 대체 가능
