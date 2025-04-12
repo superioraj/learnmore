@@ -1,4 +1,4 @@
-# Microbit_Joypad Program Code Pyrhon
+# Microbit_Joypad Program Code Python
 ```
 import sys
 import time
