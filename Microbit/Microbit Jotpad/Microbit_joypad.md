@@ -5,7 +5,7 @@ import time
 import pyautogui
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QPushButton, QLabel, QLineEdit,
-    QVBoxLayout, QHBoxLayout, QComboBox
+    QVBoxLayout, QHBoxLayout, QComboBox, QPlainTextEdit
 )
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt5.QtGui import QKeySequence
@@ -146,7 +146,7 @@ class JoypadWindow(QWidget):
         button_layout.addWidget(self.disconnect_button)
         main_layout.addLayout(button_layout)
 
-        # 이벤트별 매핑 입력란
+        # 이벤트별 매핑 입력란 영역
         self.inputs = {}
         for key in self.mapping:
             row_layout = QHBoxLayout()
@@ -168,6 +168,12 @@ class JoypadWindow(QWidget):
         delay_layout.addWidget(self.delay_input)
         main_layout.addLayout(delay_layout)
 
+        # 하단: 키보드 입력 로그 창 (최대 3줄)
+        self.log_output = QPlainTextEdit()
+        self.log_output.setReadOnly(True)
+        self.log_output.setMaximumBlockCount(3)  # 최대 3줄 유지
+        main_layout.addWidget(self.log_output)
+
         self.setLayout(main_layout)
 
     def refresh_com_ports(self):
@@ -185,12 +191,14 @@ class JoypadWindow(QWidget):
         self.serial_thread.data_received.connect(self.handle_serial_data)
         self.serial_thread.start()
         print(f"시리얼 포트 연결됨: {selected_port}")
+        self.log_output.appendPlainText(f"시리얼 포트 연결됨: {selected_port}")
 
     def stop_serial(self):
         if self.serial_thread is not None:
             self.serial_thread.stop()
             self.serial_thread = None
             print("시리얼 포트 연결이 해제되었습니다.")
+            self.log_output.appendPlainText("시리얼 포트 연결이 해제되었습니다.")
 
     def handle_serial_data(self, data):
         # 갱신: 각 매핑 입력란의 값을 딕셔너리에 저장
@@ -200,24 +208,24 @@ class JoypadWindow(QWidget):
             self.delay = int(self.delay_input.text())
         except ValueError:
             self.delay = 100
-
-        # 딜레이 후 이벤트 처리
         QTimer.singleShot(self.delay, lambda: self.simulate_key_press(data))
 
     def simulate_key_press(self, data):
         """
         마이크로비트에서 전송된 이벤트(data)와 매핑된 키값에 따라,
-        pyautogui를 통해 실제 키 입력을 시뮬레이션합니다.
+        pyautogui를 통해 실제 키 입력을 시뮬레이션하고, 해당 결과를 로그 창에 출력합니다.
         """
         key_str = self.mapping.get(data, '')
         if not key_str:
             print(f"[{data}] 매핑된 키가 없습니다.")
+            self.log_output.appendPlainText(f"[{data}] 매핑된 키가 없습니다.")
             return
 
-        print(f"[{data}] 이벤트 발생 → 매핑된 키: {key_str}")
+        log_msg = f"[{data}] 이벤트 발생 → 매핑된 키: {key_str}"
+        print(log_msg)
+        self.log_output.appendPlainText(log_msg)
 
-        # 짧은 지연을 추가해 포커스가 올바른 창으로 넘어가도록 함
-        time.sleep(0.1)
+        time.sleep(0.1)  # 짧은 지연을 추가
 
         tokens = [t.strip() for t in key_str.split('+')]
         if len(tokens) > 1:
@@ -252,7 +260,7 @@ class JoypadWindow(QWidget):
 # 4. 실행부
 ###############################################################################
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = QApplication(sys.argv)  
     window = JoypadWindow()
     window.show()
     sys.exit(app.exec_())
