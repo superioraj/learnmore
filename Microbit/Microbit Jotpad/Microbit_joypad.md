@@ -285,9 +285,9 @@ prev_logo_touched = False          # 이전 로고 터치 상태
 while True:
     # 1. 버튼 이벤트 (A, B 버튼은 .was_pressed()를 이용하여 한 번만 감지)
     if button_a.was_pressed():
-        send_event("A버튼")
+        send_event("A")
     if button_b.was_pressed():
-        send_event("B버튼")
+        send_event("B")
     
     # 2. 로고 터치 이벤트 (Micro:bit V2의 경우에 지원; V1에서는 에러 발생 시 무시)
     try:
@@ -295,12 +295,12 @@ while True:
     except Exception:
         current_logo_touched = False
     if current_logo_touched and not prev_logo_touched:
-        send_event("로고터치")
+        send_event("Logo")
     prev_logo_touched = current_logo_touched
 
     # 3. 흔들기 이벤트
     if accelerometer.was_gesture("shake"):
-        send_event("흔들기")
+        send_event("Shake")
 
     # 4. 기울기 이벤트 (상태 변화에 따라 한 번만 전송)
     # accelerometer.current_gesture()는 "up", "down", "left", "right", "face up", "face down" 등을 반환합니다.
@@ -308,13 +308,13 @@ while True:
     gesture = accelerometer.current_gesture()
     gesture_event = None
     if gesture == "up":
-        gesture_event = "위로 기울이기"
+        gesture_event = "Down Tilt"
     elif gesture == "down":
-        gesture_event = "아래로 기울이기"
-    elif gesture == "left":
+        gesture_event = "Up Tilt"
+    elif gesture == "Left Tilt":
         gesture_event = "왼쪽 기울이기"
     elif gesture == "right":
-        gesture_event = "오른쪽 기울이기"
+        gesture_event = "Right Tilt"
     # 상태가 변경되었을 때만 이벤트를 전송합니다.
     if gesture_event is not None and gesture_event != prev_gesture_event:
         send_event(gesture_event)
@@ -327,14 +327,15 @@ while True:
     # display.read_light_level()의 반환값이 0~255 사이의 정수값일 경우,
     # 20 미만이면 "조도 20 미만", 21 이상이면 "조도 21 이상"으로 구분합니다.
     light_level = display.read_light_level()
-    if light_level < 20:
-        light_region = "조도 20 미만"
+    if light_level < 100:
+        light_region = "Light below 100"
     else:
-        light_region = "조도 21 이상"
+        light_region = "Light above 100"
     if light_region != prev_light_region:
         send_event(light_region)
         prev_light_region = light_region
 
     sleep(100)
+
 
 ```
