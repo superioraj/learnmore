@@ -114,10 +114,10 @@ class JoypadWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Micro:bit Joypad Controller")
         self.mapping = {
-            'A버튼': '', 'B버튼': '', '로고터치': '',
-            '위로 기울이기': '', '아래로 기울이기': '',
-            '왼쪽 기울이기': '', '오른쪽 기울이기': '',
-            '흔들기': '', '조도 20 미만': '', '조도 21 이상': ''
+            'A': '', 'B': '', 'Logo': '',
+            'Up Tilt': '', 'Down Tilt': '',
+            'Left Tilt': '', 'Right Tilt': '',
+            'Shake': '', 'Light below 100': '', 'Light above 100': ''
         }
         self.delay = 100
         self.serial_thread = None
