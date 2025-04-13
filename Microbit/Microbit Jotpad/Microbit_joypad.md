@@ -311,8 +311,8 @@ while True:
         gesture_event = "Down Tilt"
     elif gesture == "down":
         gesture_event = "Up Tilt"
-    elif gesture == "Left Tilt":
-        gesture_event = "왼쪽 기울이기"
+    elif gesture == "left":
+        gesture_event = "Left Tilt"
     elif gesture == "right":
         gesture_event = "Right Tilt"
     # 상태가 변경되었을 때만 이벤트를 전송합니다.
@@ -336,6 +336,5 @@ while True:
         prev_light_region = light_region
 
     sleep(100)
-
 
 ```
