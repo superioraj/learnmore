@@ -28,7 +28,7 @@
 ![image](https://github.com/user-attachments/assets/2c3e3748-958e-4e41-8fa5-343aae4d3adb)
 * 전처리는 위 엑셀처럼 되어 있어야 합니다.
 
-* 
+  
 ---
   ## Program code
   ```
