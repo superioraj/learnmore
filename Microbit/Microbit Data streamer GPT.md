@@ -15,14 +15,21 @@
    *  결과를 바탕으로 대화를하며 분석 도움을 받을 수 있습니다.
 * 단순 실습 용이며, 전문적인 분석 보다는 '오프라인'상의 데이터를 수집하고, 인공지능의 도움을 받아 분석을 수행하는 과정을 교육하기 위한 프로그램입니다.
 
-  ---
+---
   # Learnmore Microbit Data Analytics Program
   ## 라이브러리 설치
   ```
   pip install PyQt5 PyQtWebEngine pandas openpyxl requests plotly
 
   ```
+---
 
+
+![image](https://github.com/user-attachments/assets/2c3e3748-958e-4e41-8fa5-343aae4d3adb)
+* 전처리는 위 엑셀처럼 되어 있어야 합니다.
+
+* 
+---
   ## Program code
   ```
   import sys
