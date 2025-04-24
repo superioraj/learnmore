@@ -10,7 +10,14 @@
 ```
 import sys
 import requests
-import tiktoken
+try:
+    import tiktoken
+    try:
+        ENC = tiktoken.get_encoding("cl100k_base")
+    except Exception:
+        ENC = None  # 인코딩 로드 실패 시 None
+except ImportError:
+    ENC = None
 import webbrowser
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import (
@@ -20,7 +27,6 @@ from PyQt5.QtWidgets import (
 
 # 한국수출입은행 Open API 인증키 및 URL
 EXIM_AUTH_KEY = "jpzHerEM9Jln4bfqonJSUP5CC05Vnzms"
-# HTTPS, HTTP 두 가지 프로토콜을 시도
 EXIM_API_URL_HTTPS = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON"
 EXIM_API_URL_HTTP  = "http://www.koreaexim.go.kr/site/program/financial/exchangeJSON"
 
@@ -31,26 +37,23 @@ MODEL_PRICES = {
     "gpt-4o-mini": 0.15,
 }
 
-# tiktoken 클라이언트 초기화 (cl100k_base)
-ENC = tiktoken.get_encoding("cl100k_base")
-
 def count_tokens(text: str) -> int:
-    """입력 텍스트를 토큰 수로 변환"""
-    return len(ENC.encode(text))
+    """입력 텍스트를 토큰 수로 변환 (tiktoken 실패 시 공백 단위로 폴백)"""
+    if ENC:
+        try:
+            return len(ENC.encode(text))
+        except Exception:
+            pass
+    return max(1, len(text.split()))
 
 
 def fetch_exim_rate() -> float:
     """
     한국수출입은행 Open API (AP01) 호출
-    HTTPS 실패 시 HTTP로 재시도하여 전날 기준일자 USD 매매기준율(deal_bas_r) 반환
-    문자열에 포함된 쉼표(,)를 제거하여 float 변환
+    전날 기준일자 YYYYMMDD로 요청하여 USD 매매기준율(deal_bas_r) 반환
     """
     search_date = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
-    params = {
-        "authkey": EXIM_AUTH_KEY,
-        "searchdate": search_date,
-        "data": "AP01"
-    }
+    params = {"authkey": EXIM_AUTH_KEY, "searchdate": search_date, "data": "AP01"}
     last_exc = None
     for url, verify in [(EXIM_API_URL_HTTPS, True), (EXIM_API_URL_HTTP, False)]:
         try:
@@ -118,8 +121,6 @@ class TokenCostCalculator(QWidget):
             self.result_label.setText(f"Manual rate set: 1 USD = {rate:.2f} KRW")
 
     def on_auto(self):
-        """Exim API 실패 시 HTTP로 폴백, 전날 기준일자 함께 표시"""
-        # 계산에 사용된 날짜
         rate_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
         try:
             rate = fetch_exim_rate()
@@ -145,10 +146,11 @@ class TokenCostCalculator(QWidget):
             return
 
         krw_cost = usd_cost * self.current_rate
+        rate_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
         self.result_label.setText(
             f"Tokens: {tokens}\n"
             f"USD Cost: ${usd_cost:.6f}\n"
-            f"KRW Cost: ₩{krw_cost:,.0f}\n"
+            f"KRW Cost: ₩{krw_cost:,.6f}\n"
             f"(Exim Base Rate {rate_date}: 1 USD = {self.current_rate:.2f} KRW)"
         )
 
@@ -160,5 +162,4 @@ if __name__ == "__main__":
     window = TokenCostCalculator()
     window.show()
     sys.exit(app.exec_())
-
 ```
