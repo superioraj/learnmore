@@ -1,4 +1,4 @@
-#전,후,좌, 우 함수 기본 코드
+# 전후좌우 함수 기본 코드
 ```
 from microbit import *
 from bitlearn import bitlearn
