@@ -3,19 +3,24 @@
 from microbit import *
 import radio
 
+radio.config(group=1, power=7) #gruop_num으로 변수 번호를 전송합니다.
 radio.on()
-radio.config(group=7)
-
 while True:
-    if button_a.was_pressed():
-        radio.send('1')  # 전진
-    elif button_b.was_pressed():
-        radio.send('2')  # 후진
-    elif pin0.is_touched():
-        radio.send('3')  # 좌회전
-    elif pin1.is_touched():
-        radio.send('4')  # 우회전
-    elif accelerometer.was_gesture('shake'):
-        radio.send('5')  # 정지
-    sleep(100)
+    print("up |down | left | right 를 입력해주세요.")
+    messege=input("전달하려는 메세지를 영어로 입력하세요:")
+    if messege=="up":
+        radio.send(messege)
+        sleep(500)
+    elif messege=="down":
+        radio.send(messege)
+        sleep(500)
+    elif messege=="left":
+        radio.send(messege)
+        sleep(500)
+    elif messege=="right":
+        radio.send(messege)
+        sleep(500)
+    else:
+        print("저장된 명령이 아닙니다.")
+        sleep(500)
 ```
