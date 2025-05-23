@@ -1,4 +1,4 @@
-#빛을 쫓아오는 로봇
+# 빛을 쫓아오는 로봇
 
 ```
 from microbit import *
