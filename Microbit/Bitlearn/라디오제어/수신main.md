@@ -1,4 +1,4 @@
-#수신자 코드
+# 수신자 코드
 ```
 from microbit import *
 import radio
