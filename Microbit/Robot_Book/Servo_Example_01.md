@@ -1,4 +1,4 @@
-# 서보모터 1개 제어하기 예제
+# 180도 서보모터 1개 제어하기 예제
 ```
 from microbit import *
 from bitlearn import bitlearn
