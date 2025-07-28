@@ -1,0 +1,16 @@
+# 파이썬 에디터 활용 함수로 180도 서보 2개 제어하기
+```
+from microbit import *
+from servo import *
+
+robot = servo(left_servo_pin=pin0, right_servo_pin=pin2)
+
+def Servo_Moving():
+    robot.set_motors_angle(0, 0)
+    sleep(500)
+    robot.set_motors_angle(180, 180)
+    sleep(500)
+
+while True:
+    Servo_Moving()
+```
